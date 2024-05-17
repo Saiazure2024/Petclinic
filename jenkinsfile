@@ -1,0 +1,27 @@
+pipeline {
+    agent any
+    
+    tools{
+        jdk 'jdk17'
+        maven 'maven3'
+    }
+
+    stages {
+        stage('Git checkout') {
+            steps {
+                git branch: 'main', url: 'https://github.com/Saiazure2024/Petclinic.git'
+            }
+        }
+        
+        stage('compilet') {
+            steps {
+              sh  "mvn clean compile"
+            }
+       }
+        stage('Build') {
+            steps {
+              sh  "mvn clean package -DskipTeststrue=true"
+           }
+       }   
+    }
+}    
